@@ -6,7 +6,15 @@ class Home extends BaseController
 {
     public function index()
     {
-        // Redirect to the Knowledge Base list page
-        return redirect()->to('/knowledge-base');
+        $authService = service('auth');
+        
+        if ($authService->loggedIn()) {
+            return view('home', [
+                'user' => $authService->user()
+            ]);
+        } else {
+            // Redirect to login page instead of trying to render a missing view
+            return redirect()->to('login');
+        }
     }
 }
