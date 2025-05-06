@@ -31,8 +31,8 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-// Knowledge Base routes
-$routes->group('knowledge-base', function ($routes) {
+// Knowledge Base routes - protected by auth filter
+$routes->group('knowledge-base', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'KnowledgeBase::index');
     $routes->get('new', 'KnowledgeBase::new');
     $routes->post('/', 'KnowledgeBase::create');
@@ -41,6 +41,16 @@ $routes->group('knowledge-base', function ($routes) {
     $routes->put('(:num)', 'KnowledgeBase::update/$1');
     $routes->delete('(:num)', 'KnowledgeBase::delete/$1');
 });
+
+// Authentication Routes
+$routes->get('login', 'Auth::login', ['as' => 'login']);
+$routes->post('login', 'Auth::attemptLogin');
+$routes->get('register', 'Auth::register', ['as' => 'register']);
+$routes->post('register', 'Auth::attemptRegister');
+$routes->get('logout', 'Auth::logout', ['as' => 'logout']);
+$routes->post('logout', 'Auth::logout');
+
+service('auth')->routes($routes);
 
 /*
  * --------------------------------------------------------------------

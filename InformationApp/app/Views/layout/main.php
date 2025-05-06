@@ -30,13 +30,34 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="<?= site_url('knowledge-base') ?>">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= site_url('knowledge-base/new') ?>">Add New Entry</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <?php $authService = service('auth'); ?>
+                        <?php if ($authService->loggedIn()): ?>
+                            <li class="nav-item">
+                                <span class="nav-link text-light">Welcome, <?= $authService->user()->username ?></span>
+                            </li>
+                            <li class="nav-item">
+                                <form action="<?= site_url('logout') ?>" method="post" class="d-inline">
+                                    <?= csrf_field() ?>
+                                    <button type="submit" class="btn btn-outline-light nav-link">Logout</button>
+                                </form>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= site_url('login') ?>">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= site_url('register') ?>">Register</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
@@ -46,7 +67,7 @@
     <?= $this->renderSection('content') ?>
 
     <footer class="container text-center mt-5 py-3 border-top">
-        <p>&copy; <?= date('Y') ?> Knowledge Base Application</p>
+        <p>&copy; <?= date('Y') ?> Amorganda Knowledge Base Application</p>
     </footer>
 
     <!-- Bootstrap JS Bundle with Popper -->

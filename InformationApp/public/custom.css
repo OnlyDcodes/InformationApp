@@ -1,0 +1,242 @@
+/* Modern Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* Base Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #1a1a2e);
+    background-attachment: fixed;
+    color: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: rgba(26, 32, 44, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, #64B5F6, #E1F5FE);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 50%;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+.welcome-text {
+    margin-right: 15px;
+    font-weight: 500;
+}
+
+/* Button Styling */
+.btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background-color: #4361ee !important;
+}
+
+.btn-primary:hover {
+    background-color: #3a56d4 !important;
+}
+
+.btn-danger {
+    background-color: #ef233c !important;
+}
+
+.btn-danger:hover {
+    background-color: #d90429 !important;
+}
+
+.btn-outline-light {
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Card Styling */
+.card {
+    background-color: rgba(26, 32, 44, 0.8) !important;
+    border: 1px solid rgba(73, 80, 87, 0.2) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    overflow: hidden !important;
+}
+
+.card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25) !important;
+}
+
+.card-header {
+    background: linear-gradient(45deg, #1a365d, #2a4365) !important;
+    border-bottom: none !important;
+    padding: 1.25rem 1.5rem !important;
+    font-weight: 600 !important;
+    color: white !important;
+}
+
+.card-body {
+    color: white !important;
+    padding: 1.75rem !important;
+}
+
+.card-body p {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Form Styling */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #1a202c !important;
+    border-radius: 8px !important;
+    padding: 0.6rem 0.75rem !important;
+    border: 1px solid rgba(226, 232, 240, 0.5) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-control:focus {
+    border-color: #4361ee !important;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3) !important;
+}
+
+.form-label {
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Table Styling */
+.table {
+    color: white !important;
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
+    margin-top: 1rem !important;
+}
+
+.table thead th {
+    border-bottom: none !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.05em !important;
+    padding: 0.75rem !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.table tbody tr {
+    background-color: rgba(45, 55, 72, 0.3) !important;
+    transition: background-color 0.3s ease, transform 0.3s ease !important;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(45, 55, 72, 0.5) !important;
+    transform: translateY(-2px) !important;
+    color: white !important;
+}
+
+.table tbody tr:hover td {
+    color: white !important;
+}
+
+.table tbody tr:hover a {
+    color: white !important;
+}
+
+.table tbody td {
+    padding: 1rem 0.75rem !important;
+    border-top: none !important;
+    vertical-align: middle !important;
+    color: white !important;
+}
+
+/* Badge Override for hover */
+.table tbody tr:hover .badge {
+    color: inherit !important;
+}
+
+/* Footer Styling */
+footer {
+    margin-top: 3rem !important;
+    padding: 1.5rem 0 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 0.9rem !important;
+    border-top: 1px solid rgba(73, 80, 87, 0.2) !important;
+}
