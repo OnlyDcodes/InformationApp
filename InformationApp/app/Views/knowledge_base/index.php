@@ -261,6 +261,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Auto-open modal if URL parameter is present
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('open_modal') === '1') {
+        // Get modal instance and show it
+        const modal = new bootstrap.Modal(document.getElementById('addEntryModal'));
+        modal.show();
+        
+        // Remove the parameter from URL without refreshing the page
+        const url = new URL(window.location);
+        url.searchParams.delete('open_modal');
+        window.history.replaceState({}, '', url);
+    }
 });
 </script>
 <?= $this->endSection() ?>

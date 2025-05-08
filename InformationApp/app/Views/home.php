@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="d-grid">
-                                <a href="<?= site_url('knowledge-base/new') ?>" class="btn btn-success">
+                                <a href="<?= site_url('knowledge-base?open_modal=1') ?>" class="btn btn-success">
                                     <i class="fas fa-plus-circle me-2"></i> Add New Entry
                                 </a>
                             </div>
