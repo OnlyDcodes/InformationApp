@@ -52,8 +52,18 @@
                                     <tr>
                                         <th class="title-col">TITLE</th>
                                         <th class="project-col">PROJECT CODE</th>
-                                        <th class="status-col">STATUS</th>
-                                        <th class="rating-col">RATING</th>
+                                        <th class="status-col">
+                                            STATUS
+                                            <a href="<?= site_url('knowledge-base?sort=status&order=' . ($sort == 'status' && $order == 'asc' ? 'desc' : 'asc') . (isset($search) ? "&search=$search" : '')) ?>" class="sort-icon">
+                                                <i class="fas fa-sort"></i>
+                                            </a>
+                                        </th>
+                                        <th class="rating-col">
+                                            RATING
+                                            <a href="<?= site_url('knowledge-base?sort=rating&order=' . ($sort == 'rating' && $order == 'asc' ? 'desc' : 'asc') . (isset($search) ? "&search=$search" : '')) ?>" class="sort-icon">
+                                                <i class="fas fa-sort"></i>
+                                            </a>
+                                        </th>
                                         <th class="created-col">CREATED BY</th>
                                         <th class="modified-col">MODIFIED BY</th>
                                         <th class="actions-col">ACTIONS</th>
@@ -107,6 +117,11 @@
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="mt-4 d-flex justify-content-center pagination-wrapper">
+                            <?= $pager->links() ?>
                         </div>
                     <?php endif; ?>
                 </div>

@@ -207,12 +207,49 @@ h1, h2, h3, h4, h5, h6 {
 .table tbody tr {
     background-color: rgba(7, 60, 92, 0.5) !important;
     transition: background-color 0.3s ease, transform 0.3s ease !important;
-    color: white !important;
 }
 
 .table tbody tr:hover {
     background-color: rgba(10, 99, 151, 0.5) !important;
     transform: translateY(-2px) !important;
+}
+
+/* Ensure text stays white on hover */
+.table tbody tr:hover td,
+.table tbody tr:hover th,
+.table tbody tr:hover a,
+.table tbody tr:hover span,
+.table tbody tr:hover i {
+    color: white !important;
+}
+
+/* Ensure star colors remain correct on hover */
+.table tbody tr:hover .fas.fa-star {
+    color: #FFD700 !important;
+}
+
+.table tbody tr:hover .far.fa-star {
+    color: #ccc !important;
+}
+
+/* Ensure badge colors remain correct on hover */
+.table tbody tr:hover .badge.bg-success {
+    background-color: #198754 !important;
+    color: white !important;
+}
+
+.table tbody tr:hover .badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.table tbody tr:hover .badge.bg-info {
+    background-color: #0dcaf0 !important;
+    color: white !important;
+}
+
+.table tbody tr:hover .badge.bg-secondary {
+    background-color: #6c757d !important;
     color: white !important;
 }
 
@@ -442,4 +479,113 @@ footer {
 
 .modal-body .mb-2 {
     margin-bottom: 0.75rem !important;
+}
+
+/* Pagination Styling */
+.pagination {
+    margin-bottom: 0;
+}
+
+.page-link {
+    background-color: rgba(7, 60, 92, 0.5) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin: 0 2px;
+    border-radius: 4px !important;
+}
+
+.page-link:hover {
+    background-color: rgba(10, 99, 151, 0.7) !important;
+    color: white !important;
+}
+
+.page-item.active .page-link {
+    background-color: #0A6397 !important;
+    border-color: #0A6397 !important;
+    color: white !important;
+}
+
+.page-item.disabled .page-link {
+    background-color: rgba(7, 60, 92, 0.3) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Sortable Columns Styling */
+.sortable-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: default;
+}
+
+.sort-icons {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+
+.sort-link {
+    padding: 0;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 0.7;
+    display: block;
+}
+
+.sort-link:hover {
+    color: white;
+}
+
+.sort-link.active {
+    color: #0A6397;
+}
+
+.sort-link i {
+    font-size: 12px;
+}
+
+/* Pagination Styling */
+.pagination-wrapper .pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-wrapper .pagination li {
+    list-style: none;
+    margin: 0 2px;
+}
+
+.pagination-wrapper .pagination li a, 
+.pagination-wrapper .pagination li span {
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: rgba(7, 60, 92, 0.5);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.5;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pagination-wrapper .pagination li.active span {
+    background-color: #0A6397;
+    border-color: #0A6397;
+}
+
+.pagination-wrapper .pagination li a:hover {
+    background-color: rgba(10, 99, 151, 0.7);
+}
+
+/* Sort Icon Styling */
+.sort-icon {
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+.sort-icon:hover {
+    color: white;
+}
+
+th {
+    white-space: nowrap;
 }
