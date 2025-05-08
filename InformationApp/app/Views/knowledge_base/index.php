@@ -23,6 +23,23 @@
                             <?= session()->getFlashdata('error') ?>
                         </div>
                     <?php endif; ?>
+                    
+                    <!-- Search Bar -->
+                    <div class="mb-3">
+                        <form action="<?= site_url('knowledge-base') ?>" method="get">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search entries..." name="search" value="<?= isset($search) ? esc($search) : '' ?>">
+                                <button class="btn btn-outline-light" type="submit">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                                <?php if(isset($search) && $search): ?>
+                                    <a href="<?= site_url('knowledge-base') ?>" class="btn btn-outline-secondary">
+                                        <i class="fas fa-times"></i> Clear
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        </form>
+                    </div>
 
                     <?php if (empty($knowledge_base)): ?>
                         <div class="text-center py-5">
@@ -37,6 +54,8 @@
                                         <th>Project Code</th>
                                         <th>Status</th>
                                         <th>Rating</th>
+                                        <th>Created by</th>
+                                        <th>Modified by</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -62,6 +81,8 @@
                                                     <i class="far fa-star" style="color: #6c757d;"></i>
                                                 <?php endfor; ?>
                                             </td>
+                                            <td><?= esc($entry['created_by']) ?></td>
+                                            <td><?= esc($entry['modified_by']) ?></td>
                                             <td class="text-end">
                                                 <a href="<?= site_url('knowledge-base/'.$entry['id']) ?>" class="btn btn-sm btn-info">
                                                     <i class="fas fa-eye"></i>
