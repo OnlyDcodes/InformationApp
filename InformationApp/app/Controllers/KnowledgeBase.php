@@ -15,9 +15,45 @@ class KnowledgeBase extends ResourceController
     {
         // Revert: Remove user check/filtering
         $model = new KnowledgeBaseModel();
-        $data = $model->findAll(); // Fetch all entries again
+        $search = $this->request->getGet('search');
+        $sort = $this->request->getGet('sort') ?: 'id';
+        $order = $this->request->getGet('order') ?: 'desc';
         
-        return view('knowledge_base/index', ['knowledge_base' => $data]);
+        // Validate sort field to prevent SQL injection
+        $allowedSort = ['id', 'title', 'rating', 'status', 'project_code', 'created_by', 'modified_by'];
+        if (!in_array($sort, $allowedSort)) {
+            $sort = 'id';
+        }
+        
+        // Validate order
+        if (!in_array($order, ['asc', 'desc'])) {
+            $order = 'desc';
+        }
+        
+        if ($search) {
+            $model->groupStart()
+                  ->like('title', $search)
+                  ->orLike('project_code', $search)
+                  ->orLike('solution', $search)
+                  ->orLike('created_by', $search)
+                  ->orLike('modified_by', $search)
+                  ->groupEnd();
+        }
+        
+        // Apply sort
+        $model->orderBy($sort, $order);
+        
+        // Get paginated data
+        $data = $model->paginate(10);
+        $pager = $model->pager;
+        
+        return view('knowledge_base/index', [
+            'knowledge_base' => $data,
+            'pager' => $pager,
+            'search' => $search,
+            'sort' => $sort,
+            'order' => $order
+        ]);
     }
 
     public function show($id = null)

@@ -4,7 +4,8 @@
 /* Base Styles */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #1a1a2e);
+    background: linear-gradient(135deg, #87a6ba, #0A6397, #7facc9);
+    background-color: white;
     background-attachment: fixed;
     color: #fff;
     padding-top: 20px;
@@ -19,7 +20,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Navbar Styling */
 .navbar {
-    background-color: rgba(26, 32, 44, 0.95) !important;
+    background-color: rgba(10, 99, 151, 0.95) !important;
     backdrop-filter: blur(10px);
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -30,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     letter-spacing: 1px;
     font-size: 1.5rem;
-    background: linear-gradient(45deg, #64B5F6, #E1F5FE);
+    background: linear-gradient(45deg, #ffffff, #e1f5fe);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -103,11 +104,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-    background-color: #4361ee !important;
+    background-color: #0A6397 !important;
 }
 
 .btn-primary:hover {
-    background-color: #3a56d4 !important;
+    background-color: #084e79 !important;
 }
 
 .btn-danger {
@@ -132,7 +133,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Card Styling */
 .card {
-    background-color: rgba(26, 32, 44, 0.8) !important;
+    background-color: rgba(7, 60, 92, 0.8) !important;
     border: 1px solid rgba(73, 80, 87, 0.2) !important;
     border-radius: 12px !important;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
@@ -146,7 +147,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-header {
-    background: linear-gradient(45deg, #1a365d, #2a4365) !important;
+    background: linear-gradient(45deg, #0A6397, #084e79) !important;
     border-bottom: none !important;
     padding: 1.25rem 1.5rem !important;
     font-weight: 600 !important;
@@ -174,8 +175,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-control:focus {
-    border-color: #4361ee !important;
-    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3) !important;
+    border-color: #0A6397 !important;
+    box-shadow: 0 0 0 3px rgba(10, 99, 151, 0.3) !important;
 }
 
 .form-label {
@@ -189,6 +190,7 @@ h1, h2, h3, h4, h5, h6 {
     border-collapse: separate !important;
     border-spacing: 0 8px !important;
     margin-top: 1rem !important;
+    width: 100% !important;
 }
 
 .table thead th {
@@ -199,37 +201,136 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.05em !important;
     padding: 0.75rem !important;
     color: rgba(255, 255, 255, 0.7) !important;
+    width: auto !important;
 }
 
 .table tbody tr {
-    background-color: rgba(45, 55, 72, 0.3) !important;
+    background-color: rgba(7, 60, 92, 0.5) !important;
     transition: background-color 0.3s ease, transform 0.3s ease !important;
 }
 
 .table tbody tr:hover {
-    background-color: rgba(45, 55, 72, 0.5) !important;
+    background-color: rgba(10, 99, 151, 0.5) !important;
     transform: translateY(-2px) !important;
+}
+
+/* Ensure text stays white on hover */
+.table tbody tr:hover td,
+.table tbody tr:hover th,
+.table tbody tr:hover a,
+.table tbody tr:hover span,
+.table tbody tr:hover i {
     color: white !important;
 }
 
-.table tbody tr:hover td {
+/* Ensure star colors remain correct on hover */
+.table tbody tr:hover .fas.fa-star {
+    color: #FFD700 !important;
+}
+
+.table tbody tr:hover .far.fa-star {
+    color: #ccc !important;
+}
+
+/* Ensure badge colors remain correct on hover */
+.table tbody tr:hover .badge.bg-success {
+    background-color: #198754 !important;
     color: white !important;
 }
 
-.table tbody tr:hover a {
+.table tbody tr:hover .badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.table tbody tr:hover .badge.bg-info {
+    background-color: #0dcaf0 !important;
     color: white !important;
 }
 
-.table tbody td {
-    padding: 1rem 0.75rem !important;
-    border-top: none !important;
-    vertical-align: middle !important;
+.table tbody tr:hover .badge.bg-secondary {
+    background-color: #6c757d !important;
     color: white !important;
 }
 
-/* Badge Override for hover */
-.table tbody tr:hover .badge {
-    color: inherit !important;
+.table th.title-col {
+    width: 25% !important;
+}
+
+.table th.project-col {
+    width: 15% !important;
+}
+
+.table th.status-col {
+    width: 12% !important;
+}
+
+.table th.rating-col {
+    width: 15% !important;
+}
+
+.table th.created-col,
+.table th.modified-col {
+    width: 10% !important;
+}
+
+.table th.actions-col {
+    width: 13% !important;
+    text-align: center !important;
+}
+
+.td-actions {
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.rating-stars {
+    white-space: nowrap !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+
+.search-box {
+    display: flex !important;
+    width: 100% !important;
+}
+
+.search-input {
+    flex: 1 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.search-button {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    background-color: #0A6397 !important;
+    color: white !important;
+    padding: 0.6rem 1.5rem !important;
+    margin-left: -1px !important;
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    cursor: pointer;
+    font-size: 25px;
+    color: #ccc;
+}
+
+.star-rating label.hover,
+.star-rating label.selected {
+    color: #FFD700;
 }
 
 /* Footer Styling */
@@ -239,4 +340,252 @@ footer {
     color: rgba(255, 255, 255, 0.7) !important;
     font-size: 0.9rem !important;
     border-top: 1px solid rgba(73, 80, 87, 0.2) !important;
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: rgba(7, 60, 92, 0.95) !important;
+    border: 1px solid rgba(73, 80, 87, 0.2) !important;
+    border-radius: 12px !important;
+    color: white !important;
+}
+
+.modal-header {
+    border-bottom: none !important;
+    padding: 1.25rem 1.5rem !important;
+    color: white !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+    padding: 1.25rem 1.5rem !important;
+}
+
+.modal-body {
+    padding: 1.75rem !important;
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Form styling within modal */
+.modal .form-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+}
+
+.modal .form-check-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.modal .form-control,
+.modal .form-select {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #1a202c !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(226, 232, 240, 0.5) !important;
+}
+
+.modal .form-control:focus,
+.modal .form-select:focus {
+    border-color: #0A6397 !important;
+    box-shadow: 0 0 0 3px rgba(10, 99, 151, 0.3) !important;
+}
+
+/* Rating radio buttons styling */
+.form-check-inline {
+    margin-right: 1.5rem !important;
+}
+
+.form-check-input:checked {
+    background-color: #0A6397 !important;
+    border-color: #0A6397 !important;
+}
+
+/* Modal Sizing */
+.compact-modal-body {
+    padding: 15px 20px !important;
+    overflow-y: visible !important;
+}
+
+.modal-dialog {
+    max-width: 500px !important;
+}
+
+.modal-content {
+    background-color: rgba(7, 60, 92, 0.95) !important;
+    border: 1px solid rgba(73, 80, 87, 0.2) !important;
+    border-radius: 12px !important;
+    color: white !important;
+}
+
+.modal-header {
+    border-bottom: none !important;
+    padding: 15px 20px !important;
+    color: white !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+    padding: 15px 20px !important;
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Star Rating Styles */
+.star-rating-container {
+    margin-top: 8px;
+}
+
+.star-rating-clickable {
+    display: flex;
+    gap: 5px;
+}
+
+.star-rating-clickable i {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.far.fa-star {
+    color: #ccc;
+}
+
+.fas.fa-star.star-rated {
+    color: #FFD700;
+}
+
+.fas.fa-star.star-hover {
+    color: #FFC107;
+}
+
+/* Make form elements more compact */
+.modal-body .form-control,
+.modal-body .form-select {
+    padding: 0.4rem 0.75rem !important;
+}
+
+.modal-body .form-label {
+    margin-bottom: 0.25rem !important;
+}
+
+.modal-body textarea {
+    min-height: 80px !important;
+}
+
+.modal-body .mb-2 {
+    margin-bottom: 0.75rem !important;
+}
+
+/* Pagination Styling */
+.pagination {
+    margin-bottom: 0;
+}
+
+.page-link {
+    background-color: rgba(7, 60, 92, 0.5) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin: 0 2px;
+    border-radius: 4px !important;
+}
+
+.page-link:hover {
+    background-color: rgba(10, 99, 151, 0.7) !important;
+    color: white !important;
+}
+
+.page-item.active .page-link {
+    background-color: #0A6397 !important;
+    border-color: #0A6397 !important;
+    color: white !important;
+}
+
+.page-item.disabled .page-link {
+    background-color: rgba(7, 60, 92, 0.3) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Sortable Columns Styling */
+.sortable-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: default;
+}
+
+.sort-icons {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+
+.sort-link {
+    padding: 0;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 0.7;
+    display: block;
+}
+
+.sort-link:hover {
+    color: white;
+}
+
+.sort-link.active {
+    color: #0A6397;
+}
+
+.sort-link i {
+    font-size: 12px;
+}
+
+/* Pagination Styling */
+.pagination-wrapper .pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-wrapper .pagination li {
+    list-style: none;
+    margin: 0 2px;
+}
+
+.pagination-wrapper .pagination li a, 
+.pagination-wrapper .pagination li span {
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: rgba(7, 60, 92, 0.5);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.5;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pagination-wrapper .pagination li.active span {
+    background-color: #0A6397;
+    border-color: #0A6397;
+}
+
+.pagination-wrapper .pagination li a:hover {
+    background-color: rgba(10, 99, 151, 0.7);
+}
+
+/* Sort Icon Styling */
+.sort-icon {
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+.sort-icon:hover {
+    color: white;
+}
+
+th {
+    white-space: nowrap;
 }
