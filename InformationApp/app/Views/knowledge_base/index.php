@@ -123,30 +123,30 @@
 
 <!-- Add Entry Modal -->
 <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background: linear-gradient(45deg, #0A6397, #084e79); color: white;">
                 <h5 class="modal-title" id="addEntryModalLabel">Add New Knowledge Base Entry</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body compact-modal-body">
                 <form action="<?= site_url('knowledge-base') ?>" method="post" id="addEntryForm">
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="project_code" class="form-label">Project Code</label>
                         <input type="text" class="form-control" id="project_code" name="project_code" required>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="solution" class="form-label">Solution</label>
-                        <textarea class="form-control" id="solution" name="solution" rows="5" required></textarea>
+                        <textarea class="form-control" id="solution" name="solution" rows="3" required></textarea>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" id="status" name="status" required>
                             <option value="">Select Status</option>
@@ -157,22 +157,25 @@
                         </select>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label class="form-label">Rating</label>
-                        <div class="d-flex">
-                            <?php for($i = 1; $i <= 5; $i++): ?>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="rating" id="rating<?= $i ?>" value="<?= $i ?>" <?= $i == 1 ? 'checked' : '' ?>>
-                                <label class="form-check-label" for="rating<?= $i ?>"><?= $i ?></label>
+                        <div class="star-rating-container">
+                            <input type="hidden" name="rating" id="selected-rating" value="1">
+                            <div class="star-rating-clickable">
+                                <i class="fas fa-star star-rated" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
                             </div>
-                            <?php endfor; ?>
                         </div>
                     </div>
+                    
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="saveEntryBtn">Save</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveEntryBtn">Save</button>
             </div>
         </div>
     </div>
@@ -192,6 +195,56 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Submit the form
         form.submit();
+    });
+    
+    // Handle star rating
+    const stars = document.querySelectorAll('.star-rating-clickable i');
+    const ratingInput = document.getElementById('selected-rating');
+    
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            const rating = this.getAttribute('data-rating');
+            ratingInput.value = rating;
+            
+            // Update visual state of stars
+            stars.forEach(s => {
+                const starRating = s.getAttribute('data-rating');
+                if (starRating <= rating) {
+                    s.className = 'fas fa-star star-rated';
+                } else {
+                    s.className = 'far fa-star';
+                }
+            });
+        });
+        
+        // Add hover effects
+        star.addEventListener('mouseenter', function() {
+            const hoverRating = this.getAttribute('data-rating');
+            
+            stars.forEach(s => {
+                const starRating = s.getAttribute('data-rating');
+                if (starRating <= hoverRating) {
+                    s.className = 'fas fa-star star-hover';
+                } else {
+                    s.className = 'far fa-star';
+                }
+            });
+        });
+    });
+    
+    // Reset to selected rating when moving mouse away
+    const starContainer = document.querySelector('.star-rating-clickable');
+    starContainer.addEventListener('mouseleave', function() {
+        const rating = ratingInput.value;
+        
+        stars.forEach(s => {
+            const starRating = s.getAttribute('data-rating');
+            if (starRating <= rating) {
+                s.className = 'fas fa-star star-rated';
+            } else {
+                s.className = 'far fa-star';
+            }
+        });
     });
 });
 </script>

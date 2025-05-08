@@ -207,6 +207,7 @@ h1, h2, h3, h4, h5, h6 {
 .table tbody tr {
     background-color: rgba(7, 60, 92, 0.5) !important;
     transition: background-color 0.3s ease, transform 0.3s ease !important;
+    color: white !important;
 }
 
 .table tbody tr:hover {
@@ -363,4 +364,82 @@ footer {
 .form-check-input:checked {
     background-color: #0A6397 !important;
     border-color: #0A6397 !important;
+}
+
+/* Modal Sizing */
+.compact-modal-body {
+    padding: 15px 20px !important;
+    overflow-y: visible !important;
+}
+
+.modal-dialog {
+    max-width: 500px !important;
+}
+
+.modal-content {
+    background-color: rgba(7, 60, 92, 0.95) !important;
+    border: 1px solid rgba(73, 80, 87, 0.2) !important;
+    border-radius: 12px !important;
+    color: white !important;
+}
+
+.modal-header {
+    border-bottom: none !important;
+    padding: 15px 20px !important;
+    color: white !important;
+}
+
+.modal-footer {
+    border-top: none !important;
+    padding: 15px 20px !important;
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Star Rating Styles */
+.star-rating-container {
+    margin-top: 8px;
+}
+
+.star-rating-clickable {
+    display: flex;
+    gap: 5px;
+}
+
+.star-rating-clickable i {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.far.fa-star {
+    color: #ccc;
+}
+
+.fas.fa-star.star-rated {
+    color: #FFD700;
+}
+
+.fas.fa-star.star-hover {
+    color: #FFC107;
+}
+
+/* Make form elements more compact */
+.modal-body .form-control,
+.modal-body .form-select {
+    padding: 0.4rem 0.75rem !important;
+}
+
+.modal-body .form-label {
+    margin-bottom: 0.25rem !important;
+}
+
+.modal-body textarea {
+    min-height: 80px !important;
+}
+
+.modal-body .mb-2 {
+    margin-bottom: 0.75rem !important;
 }
