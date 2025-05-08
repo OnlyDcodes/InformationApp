@@ -43,13 +43,23 @@
         
         <div class="mb-3">
             <label class="form-label">Rating</label>
-            <div class="d-flex">
-                <?php for($i = 0; $i <= 5; $i++): ?>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="rating" id="rating<?= $i ?>" value="<?= $i ?>" <?= old('rating') == $i ? 'checked' : ($i == 0 ? 'checked' : '') ?>>
-                    <label class="form-check-label" for="rating<?= $i ?>"><?= $i ?></label>
-                </div>
-                <?php endfor; ?>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5" <?= old('rating') == 5 ? 'checked' : '' ?>>
+                <label for="star5" id="star5-label"><i class="far fa-star"></i></label>
+                
+                <input type="radio" id="star4" name="rating" value="4" <?= old('rating') == 4 ? 'checked' : '' ?>>
+                <label for="star4" id="star4-label"><i class="far fa-star"></i></label>
+                
+                <input type="radio" id="star3" name="rating" value="3" <?= old('rating') == 3 ? 'checked' : '' ?>>
+                <label for="star3" id="star3-label"><i class="far fa-star"></i></label>
+                
+                <input type="radio" id="star2" name="rating" value="2" <?= old('rating') == 2 ? 'checked' : '' ?>>
+                <label for="star2" id="star2-label"><i class="far fa-star"></i></label>
+                
+                <input type="radio" id="star1" name="rating" value="1" <?= old('rating') == 1 ? 'checked' : '' ?>>
+                <label for="star1" id="star1-label"><i class="far fa-star"></i></label>
+                
+                <input type="radio" id="star0" name="rating" value="0" <?= old('rating') === null || old('rating') == 0 ? 'checked' : '' ?>>
             </div>
         </div>
         
@@ -58,5 +68,64 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </form>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const starLabels = document.querySelectorAll('.star-rating label');
+        const starInputs = document.querySelectorAll('.star-rating input[type="radio"]');
+        
+        // Initialize stars based on selected value
+        function updateStars() {
+            const checkedValue = document.querySelector('.star-rating input:checked')?.value || 0;
+            starLabels.forEach((label, index) => {
+                const starNumber = 5 - index;
+                const iconElement = label.querySelector('i');
+                
+                if (starNumber <= checkedValue) {
+                    iconElement.className = 'fas fa-star';
+                    label.classList.add('selected');
+                } else {
+                    iconElement.className = 'far fa-star';
+                    label.classList.remove('selected');
+                }
+            });
+        }
+        
+        // Add hover effect
+        starLabels.forEach((label, index) => {
+            label.addEventListener('mouseenter', () => {
+                const starNumber = 5 - index;
+                
+                starLabels.forEach((innerLabel, innerIndex) => {
+                    const innerStarNumber = 5 - innerIndex;
+                    const iconElement = innerLabel.querySelector('i');
+                    
+                    if (innerStarNumber <= starNumber) {
+                        iconElement.className = 'fas fa-star';
+                        innerLabel.classList.add('hover');
+                    } else {
+                        iconElement.className = 'far fa-star';
+                        innerLabel.classList.remove('hover');
+                    }
+                });
+            });
+            
+            label.addEventListener('mouseleave', () => {
+                starLabels.forEach(innerLabel => {
+                    innerLabel.classList.remove('hover');
+                });
+                updateStars();
+            });
+        });
+        
+        // Handle clicks
+        starInputs.forEach(input => {
+            input.addEventListener('change', updateStars);
+        });
+        
+        // Initial update
+        updateStars();
+    });
+    </script>
 </div>
 <?= $this->endSection() ?>

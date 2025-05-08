@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amorganda Knowledge Base</title>
+    <title>Innodata Knowledge Base</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,10 +15,10 @@
     <link href="<?= base_url('custom.css') ?>" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="<?= site_url() ?>">Amorganda Knowledge Base</a>
+                <a class="navbar-brand" href="<?= site_url() ?>">Knowledge Base</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -30,7 +30,7 @@
                         <?php $authService = service('auth'); ?>
                         <?php if ($authService->loggedIn()): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= site_url('knowledge-base') ?>">Knowledge Base</a>
+                            <a class="nav-link" href="<?= site_url('knowledge-base') ?>">Add New Entry</a>
                         </li>
                         <?php endif; ?>
                     </ul>
@@ -54,7 +54,7 @@
     <?= $this->renderSection('content') ?>
 
     <footer class="container text-center py-3">
-        <p>&copy; <?= date('Y') ?> Amorganda Knowledge Base Application | Designed with <i class="fas fa-heart text-danger"></i></p>
+        <p>&copy; <?= date('Y') ?> Innodata Knowledge Base Application</p>
     </footer>
 
     <!-- Bootstrap JS Bundle with Popper -->
