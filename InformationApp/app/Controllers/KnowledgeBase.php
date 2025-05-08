@@ -13,9 +13,25 @@ class KnowledgeBase extends ResourceController
     public function index()
     {
         $model = new KnowledgeBaseModel();
-        $data = $model->findAll();
+        $search = $this->request->getGet('search');
         
-        return view('knowledge_base/index', ['knowledge_base' => $data]);
+        // If search parameter is provided
+        if (!empty($search)) {
+            // Search in title, project_code, and solution fields
+            $data = $model->like('title', $search)
+                          ->orLike('project_code', $search)
+                          ->orLike('solution', $search)
+                          ->findAll();
+                          
+            return view('knowledge_base/index', [
+                'knowledge_base' => $data,
+                'search' => $search
+            ]);
+        } else {
+            // No search, return all entries
+            $data = $model->findAll();
+            return view('knowledge_base/index', ['knowledge_base' => $data]);
+        }
     }
 
     public function show($id = null)
