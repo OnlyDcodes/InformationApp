@@ -8,39 +8,28 @@ use CodeIgniter\RESTful\ResourceController;
 class KnowledgeBase extends ResourceController
 {
     protected $modelName = 'App\Models\KnowledgeBaseModel';
-    protected $format    = 'json';
+    // Restore format if it was removed, or remove if not needed previously
+    // protected $format    = 'json'; 
 
     public function index()
     {
+        // Revert: Remove user check/filtering
         $model = new KnowledgeBaseModel();
-        $search = $this->request->getGet('search');
+        $data = $model->findAll(); // Fetch all entries again
         
-        // If search parameter is provided
-        if (!empty($search)) {
-            // Search in title, project_code, and solution fields
-            $data = $model->like('title', $search)
-                          ->orLike('project_code', $search)
-                          ->orLike('solution', $search)
-                          ->findAll();
-                          
-            return view('knowledge_base/index', [
-                'knowledge_base' => $data,
-                'search' => $search
-            ]);
-        } else {
-            // No search, return all entries
-            $data = $model->findAll();
-            return view('knowledge_base/index', ['knowledge_base' => $data]);
-        }
+        return view('knowledge_base/index', ['knowledge_base' => $data]);
     }
 
     public function show($id = null)
     {
+        // Revert: Remove user check/filtering
         $model = new KnowledgeBaseModel();
-        $data = $model->find($id);
+        $data = $model->find($id); // Find by ID directly
         
         if (!$data) {
+            // Keep original error handling
             return redirect()->to('/knowledge-base')->with('error', 'Knowledge base entry not found');
+            // Or use throw PageNotFoundException if that was the previous method
         }
         
         return view('knowledge_base/show', ['entry' => $data]);
@@ -48,46 +37,59 @@ class KnowledgeBase extends ResourceController
 
     public function new()
     {
+        // Revert: Remove user check
         return view('knowledge_base/create');
     }
 
     public function create()
     {
+        // Revert: Remove user check and user_id assignment
         $model = new KnowledgeBaseModel();
         
         $rules = [
             'title' => 'required|min_length[3]',
             'project_code' => 'required',
             'solution' => 'required',
+            // Add back other rules if they existed before
+            'status' => 'required', 
+            'rating' => 'permit_empty|integer|less_than_equal_to[5]',
         ];
         
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
         
+        // Prepare data without user_id, use original created_by/modified_by if applicable
+        $creatorUsername = auth()->loggedIn() ? auth()->user()->username : 'System'; // Handle case if user might not be logged in
+        
         $data = [
-            'title'        => $this->request->getPost('title'),
-            'project_code' => $this->request->getPost('project_code'),
-            'solution'     => $this->request->getPost('solution'),
-            'status'       => $this->request->getPost('status'),
-            'rating'       => $this->request->getPost('rating'),
-            'created_by'   => auth()->user()->username,
-            'modified_by'  => auth()->user()->username,
+            'title'        => $this->request->getVar('title'),
+            'project_code' => $this->request->getVar('project_code'),
+            'solution'     => $this->request->getVar('solution'),
+            'status'       => $this->request->getVar('status'),
+            'rating'       => $this->request->getVar('rating'),
+            // Remove 'user_id' => auth()->id(),
+            'created_by'   => $creatorUsername, 
+            'modified_by'  => $creatorUsername, 
         ];
         
         if ($model->save($data)) {
             return redirect()->to('/knowledge-base')->with('message', 'Knowledge base entry created successfully');
         } else {
-            return redirect()->back()->withInput()->with('errors', $model->errors());
+            // Keep original error handling
+            log_message('error', 'KnowledgeBase Create Failed: ' . print_r($model->errors(), true));
+            return redirect()->back()->withInput()->with('error', 'Failed to create entry.')->with('errors', $model->errors());
         }
     }
 
     public function edit($id = null)
     {
+        // Revert: Remove user check/filtering
         $model = new KnowledgeBaseModel();
-        $data = $model->find($id);
+        $data = $model->find($id); // Find directly
         
         if (!$data) {
+            // Keep original error handling
             return redirect()->to('/knowledge-base')->with('error', 'Knowledge base entry not found');
         }
         
@@ -96,9 +98,11 @@ class KnowledgeBase extends ResourceController
 
     public function update($id = null)
     {
+        // Revert: Remove user check/filtering
         $model = new KnowledgeBaseModel();
         
-        if (!$model->find($id)) {
+        // Find directly
+        if (!$model->find($id)) { 
             return redirect()->to('/knowledge-base')->with('error', 'Knowledge base entry not found');
         }
         
@@ -106,40 +110,55 @@ class KnowledgeBase extends ResourceController
             'title' => 'required|min_length[3]',
             'project_code' => 'required',
             'solution' => 'required',
+            // Add back other rules if they existed before
+            'status' => 'required', 
+            'rating' => 'permit_empty|integer|less_than_equal_to[5]',
         ];
         
         if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            // Redirect back to edit page
+            return redirect()->to('/knowledge-base/'.$id.'/edit')->withInput()->with('errors', $this->validator->getErrors());
         }
+
+        // Prepare data without user_id check, use original modified_by if applicable
+        $modifierUsername = auth()->loggedIn() ? auth()->user()->username : 'System'; // Handle case if user might not be logged in
         
         $data = [
-            'id'           => $id,
-            'title'        => $this->request->getPost('title'),
-            'project_code' => $this->request->getPost('project_code'),
-            'solution'     => $this->request->getPost('solution'),
-            'status'       => $this->request->getPost('status'),
-            'rating'       => $this->request->getPost('rating'),
-            'modified_by'  => auth()->user()->username,
+            // 'id' is handled by save/update
+            'title'        => $this->request->getVar('title'),
+            'project_code' => $this->request->getVar('project_code'),
+            'solution'     => $this->request->getVar('solution'),
+            'status'       => $this->request->getVar('status'),
+            'rating'       => $this->request->getVar('rating'),
+            'modified_by'  => $modifierUsername, // Update modifier
         ];
         
-        if ($model->save($data)) {
+        // Use update method
+        if ($model->update($id, $data)) {
             return redirect()->to('/knowledge-base')->with('message', 'Knowledge base entry updated successfully');
         } else {
-            return redirect()->back()->withInput()->with('errors', $model->errors());
+            // Keep original error handling
+            log_message('error', 'KnowledgeBase Update Failed (ID: '.$id.'): ' . print_r($model->errors(), true));
+            return redirect()->to('/knowledge-base/'.$id.'/edit')->withInput()->with('error', 'Failed to update entry.')->with('errors', $model->errors());
         }
     }
 
     public function delete($id = null)
     {
+        // Revert: Remove user check/filtering
         $model = new KnowledgeBaseModel();
         
+        // Find directly
         if (!$model->find($id)) {
             return redirect()->to('/knowledge-base')->with('error', 'Knowledge base entry not found');
         }
         
+        // Use delete method
         if ($model->delete($id)) {
             return redirect()->to('/knowledge-base')->with('message', 'Knowledge base entry deleted successfully');
         } else {
+            // Keep original error handling
+            log_message('error', 'KnowledgeBase Delete Failed (ID: '.$id.'): ' . print_r($model->errors(), true));
             return redirect()->to('/knowledge-base')->with('error', 'Failed to delete knowledge base entry');
         }
     }
