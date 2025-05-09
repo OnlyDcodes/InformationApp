@@ -40,6 +40,7 @@ $routes->group('knowledge-base', ['filter' => 'auth'], function ($routes) {
     $routes->get('(:num)/edit', 'KnowledgeBase::edit/$1');
     $routes->put('(:num)', 'KnowledgeBase::update/$1');
     $routes->delete('(:num)', 'KnowledgeBase::delete/$1');
+    $routes->post('update/(:num)', 'KnowledgeBase::update/$1');
 });
 
 // Authentication Routes

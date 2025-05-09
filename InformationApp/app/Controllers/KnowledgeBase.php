@@ -63,12 +63,24 @@ class KnowledgeBase extends ResourceController
             return redirect()->to('/knowledge-base')->with('error', 'Knowledge base entry not found');
         }
         
+        // Check if we should handle this as view/edit modal
+        $modal = $this->request->getGet('modal');
+        if ($modal) {
+            return view('knowledge_base/index', [
+                'knowledge_base' => $model->paginate(10),
+                'pager' => $model->pager,
+                'entry' => $data,
+                'sort' => 'id',
+                'order' => 'desc'
+            ]);
+        }
+        
         return view('knowledge_base/show', ['entry' => $data]);
     }
 
     public function new()
     {
-        return view('knowledge_base/create');
+        return redirect()->to('/knowledge-base?open_modal=1');
     }
 
     public function create()
@@ -82,7 +94,7 @@ class KnowledgeBase extends ResourceController
         ];
         
         if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to('/knowledge-base')->with('errors', $this->validator->getErrors());
         }
         
         $data = [
@@ -98,20 +110,13 @@ class KnowledgeBase extends ResourceController
         if ($model->save($data)) {
             return redirect()->to('/knowledge-base')->with('message', 'Knowledge base entry created successfully');
         } else {
-            return redirect()->back()->withInput()->with('errors', $model->errors());
+            return redirect()->to('/knowledge-base')->with('errors', $model->errors());
         }
     }
 
     public function edit($id = null)
     {
-        $model = new KnowledgeBaseModel();
-        $data = $model->find($id);
-        
-        if (!$data) {
-            return redirect()->to('/knowledge-base')->with('error', 'Knowledge base entry not found');
-        }
-        
-        return view('knowledge_base/edit', ['entry' => $data]);
+        return redirect()->to("/knowledge-base/{$id}?modal=edit");
     }
 
     public function update($id = null)
@@ -129,7 +134,7 @@ class KnowledgeBase extends ResourceController
         ];
         
         if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to('/knowledge-base')->with('errors', $this->validator->getErrors());
         }
         
         $data = [
@@ -145,7 +150,7 @@ class KnowledgeBase extends ResourceController
         if ($model->save($data)) {
             return redirect()->to('/knowledge-base')->with('message', 'Knowledge base entry updated successfully');
         } else {
-            return redirect()->back()->withInput()->with('errors', $model->errors());
+            return redirect()->to('/knowledge-base')->with('errors', $model->errors());
         }
     }
 
